@@ -17,18 +17,6 @@ trait HasRestModel
     abstract protected function getModelClassName() : string;
 
     /**
-     * @param Request $request
-     * @param $modelId
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show(Request $request, $modelId)
-    {
-        $model = $this->getModelFromIdentifier($modelId);
-        $this->verifyShowAccess($model);
-        return $this->returnSingleModel($model);
-    }
-
-    /**
      * @param $model
      */
     protected function buildModelLinks(&$model)
@@ -60,11 +48,6 @@ trait HasRestModel
         }
         return $model;
     }
-
-    /**
-     * @param $model
-     */
-    protected function verifyShowAccess($model){}
 
     /**
      * @param int $id

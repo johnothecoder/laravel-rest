@@ -8,5 +8,5 @@ namespace KyaSoftware\LaravelRest\Traits;
  */
 trait ReadOnly
 {
-    use HasRestModel, DoesSearch;
+    use HasRestModel, DoesSearch, DoesShow;
 }

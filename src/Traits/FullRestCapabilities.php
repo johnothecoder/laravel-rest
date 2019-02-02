@@ -8,5 +8,5 @@ namespace KyaSoftware\LaravelRest\Traits;
  */
 trait FullRestCapabilities
 {
-    use HasRestModel, DoesDestroy, DoesPatch, DoesPut, DoesSearch, DoesStore;
+    use HasRestModel, DoesDestroy, DoesPatch, DoesPut, DoesSearch, DoesStore, DoesShow;
 }
