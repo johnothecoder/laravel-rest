@@ -4,14 +4,20 @@ namespace KyaSoftware\LaravelRest\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use KyaSoftware\LaravelRest\Handlers\Search\SearchHandler;
 
+/**
+ * Class RestController
+ * @package KyaSoftware\LaravelRest\Controllers
+ */
 abstract class RestController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(Request $request)
     {
-
         $class = $this->getModelClassName();
         $this->verifyIndexAccess();
         $query = $class::select($this->getDefaultSelect());
@@ -26,19 +32,24 @@ abstract class RestController extends Controller
         } else {
             $results = $query->get();
         }
-
         foreach($results as &$result){
             $this->buildModelLinks($result);
         }
-
         return response()->json($results);
     }
 
+    /**
+     * @param $model
+     */
     protected function buildModelLinks(&$model)
     {
         $model->links = [];
     }
 
+    /**
+     * @param Request $request
+     * @param $query
+     */
     protected function handleFiltering(Request $request, &$query)
     {
         foreach($this->getFilterFields() as $field){
@@ -49,6 +60,10 @@ abstract class RestController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param $query
+     */
     protected function handleSearch(Request $request, &$query)
     {
         $searchField = 'search';
@@ -63,6 +78,10 @@ abstract class RestController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param $query
+     */
     protected function handleOrdering(Request $request, &$query)
     {
         $orderByField = $this->getOrderByField();
@@ -73,6 +92,10 @@ abstract class RestController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @param $query
+     */
     protected function handleTrash(Request $request, $query)
     {
         $model = $this->getModelClassName();
@@ -87,8 +110,17 @@ abstract class RestController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param $query
+     */
     protected function handleAdditionalFiltering(Request $request, &$query){}
 
+    /**
+     * @param Request $request
+     * @param $modelId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(Request $request, $modelId)
     {
         $model = $this->getModelFromIdentifier($modelId);
@@ -96,6 +128,10 @@ abstract class RestController extends Controller
         return $this->returnSingleModel($model);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         if(!empty($this->getStoreValidation())){
@@ -112,6 +148,12 @@ abstract class RestController extends Controller
         return $this->returnSingleModel($model);
     }
 
+    /**
+     * @param Request $request
+     * @param $modelId
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function put(Request $request, $modelId)
     {
         if(empty($this->getPutFields())){
@@ -127,6 +169,12 @@ abstract class RestController extends Controller
         return $this->returnSingleModel($model);
     }
 
+    /**
+     * @param Request $request
+     * @param $modelId
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function patch(Request $request, $modelId)
     {
         if(empty($this->getPatchableFields())){
@@ -144,6 +192,10 @@ abstract class RestController extends Controller
         return $this->returnSingleModel($model);
     }
 
+    /**
+     * @param $model
+     * @return \Illuminate\Http\JsonResponse
+     */
     protected function returnSingleModel($model)
     {
         $model->refresh();
@@ -151,6 +203,11 @@ abstract class RestController extends Controller
         return response()->json($model);
     }
 
+    /**
+     * @param Request $request
+     * @param $modelId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy(Request $request, $modelId)
     {
         $model = $this->getModelFromIdentifier($modelId);
@@ -159,21 +216,42 @@ abstract class RestController extends Controller
         return response()->json(['message' => __('That resource has been deleted')]);
     }
 
+    /**
+     * @return array
+     */
     protected function getStoreValidation() : array
     {
         return [];
     }
 
-    protected function getStoreFillFields() : array
+    /**
+     * @return array
+     */
+    protected function getPutValidation() : array
     {
         return [];
     }
 
+    /**
+     * @return array
+     */
     protected function getPatchValidation() : array
     {
         return [];
     }
 
+    /**
+     * @return array
+     */
+    protected function getStoreFillFields() : array
+    {
+        return [];
+    }
+
+    /**
+     * @param $identifier
+     * @return mixed
+     */
     protected function getModelFromIdentifier($identifier)
     {
         $class = $this->getModelClassName();
@@ -184,56 +262,90 @@ abstract class RestController extends Controller
         return $model;
     }
 
+    /**
+     * @return bool
+     */
     protected function usePagination() : bool
     {
         return true;
     }
 
+    /**
+     * @return string
+     */
     protected function getTrashField() : string
     {
         return 'trash';
     }
 
+    /**
+     * @return string
+     */
     protected function getOrderField() : string
     {
         return 'order';
     }
 
+    /**
+     * @return string
+     */
     protected function getOrderByField() : string
     {
         return 'order_by';
     }
 
+    /**
+     * @return string
+     */
     protected function getDefaultOrder() : string
     {
         return 'DESC';
     }
 
+    /**
+     * @return string
+     */
     protected function getDefaultOrderBy() : string
     {
         return 'updated_at';
     }
 
+    /**
+     * @return int
+     */
     protected function getRecordsPerPage() : int
     {
         return 25;
     }
 
+    /**
+     * @return string
+     */
     protected function getSearchField() : string
     {
         return 'search';
     }
 
+    /**
+     * @return string
+     */
     protected function getDefaultSelect() : string
     {
         return '*';
     }
 
+    /**
+     * @return string
+     */
     protected function getPerPageField() : string
     {
         return 'per_page';
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     protected function getModelInstanceFromId(int $id)
     {
         $class = $this->getModelClassName();
@@ -244,36 +356,66 @@ abstract class RestController extends Controller
         return $record;
     }
 
+    /**
+     * @return array
+     */
     protected function getFilterFields() : array
     {
         return [];
     }
 
+    /**
+     * @return array
+     */
     protected function getFluffyFields() : array
     {
         return [];
     }
 
+    /**
+     * Verify that this user can access the index/search isting
+     */
     protected function verifyIndexAccess(){}
 
+    /**
+     * @param $model
+     */
     protected function verifyShowAccess($model){}
 
+    /**
+     * @param $model
+     */
     protected function verifyPatchAccess($model){}
 
+    /**
+     * @param $model
+     */
     protected function verifyPutAccess($model){}
 
+    /**
+     * @param $model
+     */
     protected function verifyDeleteAccess($model){}
 
+    /**
+     * @return array
+     */
     protected function getPatchableFields() : array
     {
         return [];
     }
 
+    /**
+     * @return array
+     */
     protected function getPutFields() : array
     {
         return [];
     }
 
+    /**
+     * @return string
+     */
     abstract protected function getModelClassName() : string;
 
 }
