@@ -4,6 +4,10 @@ namespace KyaSoftware\LaravelRest\Traits;
 
 use Illuminate\Http\Request;
 
+/**
+ * Trait DoesSearch
+ * @package KyaSoftware\LaravelRest\Traits
+ */
 trait DoesSearch
 {
 
