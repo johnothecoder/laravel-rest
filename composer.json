@@ -2,7 +2,8 @@
     "name": "kya/laravel-rest",
     "description": "Provides easy to access RESTful functionality for your Laravel API",
     "require": {
-        "php": "^7.2"
+        "php": "^7.2",
+        "laravel/framework": "5.7.*"
     },
     "keywords":["laravel","rest","restful","controllers"],
     "homepage":"https://www.kyasoftware.com",
@@ -19,7 +20,8 @@
     "support":{
         "email":"matt@kyasoftware.com",
         "issues":"https://github.com/kya-software/laravel-rest/issues",
-        "source":"https://github.com/kya-software/laravel-rest"
+        "source":"https://github.com/kya-software/laravel-rest",
+        "chat":"https://join.slack.com/t/kyasoftware/shared_invite/enQtNTQwMzkzMjE4MTgwLTI2OGMzZmVmMzNhODAyN2I3MWEwNzY3OTJkYjY5NzJlOWE4Y2FiOGE1YjdhODM5NTcwZjE4ODZkZDMxNzNlNzg"
     },
     "autoload": {
         "psr-4": {
