@@ -3,5 +3,27 @@
     "description": "Provides easy to access RESTful functionality for your Laravel API",
     "require": {
         "php": "^7.2"
+    },
+    "keywords":["laravel","rest","restful","controllers"],
+    "homepage":"https://www.kyasoftware.com",
+    "authors": [
+        {
+            "name": "Matt Johnson",
+            "email": "matt@kyasoftware.com",
+            "homepage": "https://johnothecoder.uk",
+            "role": "Developer"
+        }
+    ],
+    "license":"MIT",
+    "readme":"README.md",
+    "support":{
+        "email":"matt@kyasoftware.com",
+        "issues":"https://github.com/kya-software/laravel-rest/issues",
+        "source":"https://github.com/kya-software/laravel-rest"
+    },
+    "autoload": {
+        "psr-4": {
+            "KyaSoftware\\LaravelRest\\": "src/"
+        }
     }
 }
