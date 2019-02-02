@@ -1,0 +1,7 @@
+{
+    "name": "kya/laravel-rest",
+    "description": "Provides easy to access RESTful functionality for your Laravel API",
+    "require": {
+        "php": "^7.2"
+    }
+}
