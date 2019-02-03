@@ -21,7 +21,8 @@
         "email":"matt@kyasoftware.com",
         "issues":"https://github.com/kya-software/laravel-rest/issues",
         "source":"https://github.com/kya-software/laravel-rest",
-        "chat":"https://join.slack.com/t/kyasoftware/shared_invite/enQtNTQwMzkzMjE4MTgwLTI2OGMzZmVmMzNhODAyN2I3MWEwNzY3OTJkYjY5NzJlOWE4Y2FiOGE1YjdhODM5NTcwZjE4ODZkZDMxNzNlNzg"
+        "chat":"https://join.slack.com/t/kyasoftware/shared_invite/enQtNTQwMzkzMjE4MTgwLTI2OGMzZmVmMzNhODAyN2I3MWEwNzY3OTJkYjY5NzJlOWE4Y2FiOGE1YjdhODM5NTcwZjE4ODZkZDMxNzNlNzg",
+        "docs":"https://github.com/kya-software/laravel-rest/wiki"
     },
     "autoload": {
         "psr-4": {
