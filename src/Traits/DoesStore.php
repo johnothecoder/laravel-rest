@@ -22,6 +22,7 @@ trait DoesStore
         }
         $class = $this->getModelClassName();
         $model = new $class();
+        $this->verifyStoreAccess($model);
         if(!empty($this->getStoreFillFields())){
             $model->fill($request->only($this->getStoreFillFields()));
         } else {
@@ -30,6 +31,11 @@ trait DoesStore
         $model->save();
         return $this->returnSingleModel($model);
     }
+
+    /**
+     * @param $model
+     */
+    protected function verifyStoreAccess($model){}
 
     /**
      * @return array
